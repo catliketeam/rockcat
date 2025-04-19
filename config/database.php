@@ -132,14 +132,7 @@ return [
 
     'redis' => [
 
-        'client' => env('REDIS_CLIENT', 'predis'),
-
-        'options' => [
-                'ssl' => [
-                    'verify_peer' => false,
-                    'verify_peer_name' => false,
-                ],
-            ],
+        'client' => env('REDIS_CLIENT', 'phpredis'),
 
         'default' => [
             'url' => env('REDIS_URL'),
