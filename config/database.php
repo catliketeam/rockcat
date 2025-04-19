@@ -132,23 +132,41 @@ return [
 
     'redis' => [
 
-    'client' => env('REDIS_CLIENT', 'predis'),
+        'client' => env('REDIS_CLIENT', 'predis'),
 
-    'default' => [
-        'url' => env('REDIS_URL'),
+        'default' => [
+            'url' => env('REDIS_URL'),
+            'options' => [
+                'ssl' => [
+                    'verify_peer' => false,
+                    'verify_peer_name' => false,
+                ],
+            ],
+        ],
+
+        'session' => [
+            'url' => env('REDIS_URL'),
+            'database' => env('REDIS_DATABASE_SESSION', 1),
+            'options' => [
+                'ssl' => [
+                    'verify_peer' => false,
+                    'verify_peer_name' => false,
+                ],
+            ],
+        ],
+
+        'pulse' => [
+            'url' => env('REDIS_URL'),
+            'database' => env('REDIS_DATABASE_PULSE', 2),
+            'options' => [
+                'ssl' => [
+                    'verify_peer' => false,
+                    'verify_peer_name' => false,
+                ],
+            ],
+        ],
+
     ],
-
-    'session' => [
-        'url' => env('REDIS_URL'),
-        'database' => env('REDIS_DATABASE_SESSION', 1),
-    ],
-
-    'pulse' => [
-        'url' => env('REDIS_URL'),
-        'database' => env('REDIS_DATABASE_PULSE', 2),
-    ],
-
-],
 
 	'dbal' => [
 	    'types' => [
