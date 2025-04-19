@@ -141,6 +141,7 @@ return [
             'password' => env('REDIS_PASSWORD', null),
             'port'     => env('REDIS_PORT', 6379),
             'database' => env('REDIS_DATABASE', 0),
+            'ssl'      => ['verify_peer' => false],
         ],
 
         'session' => [

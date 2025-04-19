@@ -1,0 +1,58 @@
+#!/bin/bash
+
+# 1. Set your app name
+APP_NAME=rockcat
+heroku create $APP_NAME --team rockstarz
+
+# 2. Set Heroku stack
+heroku stack:set heroku-24 --app $APP_NAME
+
+# 3. Add Buildpacks
+heroku buildpacks:clear --app $APP_NAME
+heroku buildpacks:add --index 1 heroku/nodejs --app $APP_NAME
+heroku buildpacks:add --index 2 heroku/php --app $APP_NAME
+
+# 4. Addons
+#heroku addons:create heroku-postgresql:essential-0 --app $APP_NAME
+#heroku addons:create heroku-redis:premium-0 --app $APP_NAME
+
+# Optional: Add Heroku Scheduler for cron jobs
+#heroku addons:create scheduler:standard --app $APP_NAME
+
+# 5. Set environment variables
+heroku config:set APP_ENV=staging APP_DEBUG=true LOG_CHANNEL=errorlog \
+QUEUE_CONNECTION=redis SESSION_DRIVER=redis CACHE_DRIVER=redis \
+APP_NAME="Rockcat Test" APP_URL=https://$APP_NAME.herokuapp.com --app $APP_NAME \
+PIXELFED_DOMAIN=$APP_NAME.herokuapp.com \
+PIXELFED_INSTANCE_NAME="$APP_NAME Staging" \
+PIXELFED_INSTANCE_DESCRIPTION="Private testing instance" \
+PIXELFED_PUBLIC=false \
+ACTIVITY_PUB_ENABLED=false \
+FEATURE_REGISTRATION_ENABLED=false \
+FEATURE_EMAIL_VERIFICATION=false
+
+# 6. Optional: Configure S3 storage (fill these in!)
+#heroku config:set FILESYSTEM_DISK=s3 \
+#AWS_ACCESS_KEY_ID=your-key \
+#AWS_SECRET_ACCESS_KEY=your-secret \
+#AWS_DEFAULT_REGION=your-region \
+#AWS_BUCKET=your-bucket --app $APP_NAME
+
+# 7. Push code to Heroku
+git push https://git.heroku.com/$APP_NAME.git HEAD:dev
+
+# 8. Run database migrations
+heroku run "php artisan migrate --force" --app $APP_NAME
+
+# 9. Set app key
+heroku run "php artisan key:generate" --app $APP_NAME
+
+# 10. Link storage
+heroku run "php artisan storage:link" --app $APP_NAME
+
+# 11. Enable worker dyno for queue
+heroku ps:scale web=1 worker=1 --app $APP_NAME
+
+# 12. Final message
+echo "🚀 Pixelfed should now be deployed at https://$APP_NAME.herokuapp.com"
+
