@@ -134,36 +134,25 @@ return [
 
         'client' => env('REDIS_CLIENT', 'predis'),
 
-        'default' => [
-            'url' => env('REDIS_URL'),
-            'options' => [
+        'options' => [
                 'ssl' => [
                     'verify_peer' => false,
                     'verify_peer_name' => false,
                 ],
             ],
+
+        'default' => [
+            'url' => env('REDIS_URL'),
         ],
 
         'session' => [
             'url' => env('REDIS_URL'),
             'database' => env('REDIS_DATABASE_SESSION', 1),
-            'options' => [
-                'ssl' => [
-                    'verify_peer' => false,
-                    'verify_peer_name' => false,
-                ],
-            ],
         ],
 
         'pulse' => [
             'url' => env('REDIS_URL'),
             'database' => env('REDIS_DATABASE_PULSE', 2),
-            'options' => [
-                'ssl' => [
-                    'verify_peer' => false,
-                    'verify_peer_name' => false,
-                ],
-            ],
         ],
 
     ],
