@@ -100,7 +100,10 @@
     "config": {
         "preferred-install": "dist",
         "sort-packages": true,
-        "optimize-autoloader": true
+        "optimize-autoloader": true,
+        "platform": {
+            "ext-redis": "5.3.7"
+        }
     },
     "prefer-stable": true
 }
