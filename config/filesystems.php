@@ -77,11 +77,8 @@ return [
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
             'throw' => true,
             'options' => [
-                'ACL' => null,
                 'CacheControl' => 'max-age=31536000',
             ],
-            'visibility' => 'public',
-            'directory_visibility' => 'public',
         ],
 
         'alt-primary' => [

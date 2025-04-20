@@ -106,7 +106,7 @@ class ComposeController extends Controller
 
         $storagePath = MediaPathService::get($user, 2);
         $filename = $photo->hashName();
-        $path = $photo->store($storagePath, 's3');
+        $path = $photo->storeAs($storagePath, $filename, 's3');
         $hash = \hash_file('sha256', $photo);
         $mime = $photo->getMimeType();
 
