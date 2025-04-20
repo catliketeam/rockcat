@@ -16,6 +16,8 @@ heroku buildpacks:add --index 2 heroku/php --app $APP_NAME
 heroku addons:create heroku-postgresql:essential-0 --app $APP_NAME
 #heroku addons:create heroku-redis:premium-0 --app $APP_NAME
 heroku addons:create rediscloud:30 --app $APP_NAME
+heroku addons:create bucketeer:hobbyist --app $APP_NAME
+heroku addons:create sendgrid:starter --app $APP_NAME
 
 # Optional: Add Heroku Scheduler for cron jobs
 heroku addons:create scheduler:standard --app $APP_NAME
