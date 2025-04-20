@@ -131,23 +131,28 @@ return [
     */
 
     'redis' => [
-
         'client' => env('REDIS_CLIENT', 'phpredis'),
-
         'default' => [
-            'url' => env('REDIS_URL'),
+            'url' => env('REDISCLOUD_URL'),
+            'host' => parse_url(env('REDISCLOUD_URL'), PHP_URL_HOST),
+            'password' => parse_url(env('REDISCLOUD_URL'), PHP_URL_PASS),
+            'port' => parse_url(env('REDISCLOUD_URL'), PHP_URL_PORT),
+            'database' => '0',
         ],
-
         'session' => [
-            'url' => env('REDIS_URL'),
-            'database' => env('REDIS_DATABASE_SESSION', 1),
+            'url' => env('REDISCLOUD_URL'),
+            'host' => parse_url(env('REDISCLOUD_URL'), PHP_URL_HOST),
+            'password' => parse_url(env('REDISCLOUD_URL'), PHP_URL_PASS),
+            'port' => parse_url(env('REDISCLOUD_URL'), PHP_URL_PORT),
+            'database' => '1',
         ],
-
         'pulse' => [
-            'url' => env('REDIS_URL'),
-            'database' => env('REDIS_DATABASE_PULSE', 2),
+            'url' => env('REDISCLOUD_URL'),
+            'host' => parse_url(env('REDISCLOUD_URL'), PHP_URL_HOST),
+            'password' => parse_url(env('REDISCLOUD_URL'), PHP_URL_PASS),
+            'port' => parse_url(env('REDISCLOUD_URL'), PHP_URL_PORT),
+            'database' => '2',
         ],
-
     ],
 
 	'dbal' => [
