@@ -72,7 +72,7 @@ return [
             'secret' => env('BUCKETEER_AWS_SECRET_ACCESS_KEY'),
             'region' => env('BUCKETEER_AWS_REGION'),
             'bucket' => env('BUCKETEER_BUCKET_NAME'),
-            'url' => 'https://' . env('BUCKETEER_BUCKET_NAME') . '.s3.amazonaws.com',
+            'url' => env('BUCKETEER_URL'),
             'endpoint' => null,
             'use_path_style_endpoint' => false,
             'throw' => true,
@@ -83,6 +83,7 @@ return [
                 'CacheControl' => 'max-age=31536000',
             ],
             'stream_reads' => true,
+            'root' => 'public',
         ],
 
         'alt-primary' => [
