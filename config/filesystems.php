@@ -79,8 +79,10 @@ return [
             'options' => [
                 'CacheControl' => 'max-age=31536000',
             ],
-            'visibility' => 'public',
-            'directory_visibility' => 'public',
+            'metadata' => [
+                'CacheControl' => 'max-age=31536000',
+            ],
+            'stream_reads' => true,
         ],
 
         'alt-primary' => [
