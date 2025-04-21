@@ -1,2 +1,4 @@
-web: vendor/bin/heroku-php-apache2 public/
-worker: php artisan queue:work --sleep=3 --tries=3
+web: vendor/bin/heroku-php-apache2 -i custom_php.ini public/
+worker: php artisan queue:work --tries=3 --timeout=300
+
+
