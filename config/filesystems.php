@@ -73,11 +73,14 @@ return [
             'region' => env('BUCKETEER_AWS_REGION'),
             'bucket' => env('BUCKETEER_BUCKET_NAME'),
             'url' => env('BUCKETEER_URL'),
+            'endpoint' => null,
+            'use_path_style_endpoint' => false,
             'throw' => true,
             'options' => [
                 'CacheControl' => 'max-age=31536000',
             ],
             'visibility' => 'public',
+            'directory_visibility' => 'public',
         ],
 
         'alt-primary' => [
