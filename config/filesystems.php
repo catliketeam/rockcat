@@ -77,6 +77,7 @@ return [
             'options' => [
                 'CacheControl' => 'max-age=31536000',
             ],
+            'visibility' => 'public',
         ],
 
         'alt-primary' => [
