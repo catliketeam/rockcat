@@ -72,7 +72,7 @@ return [
             'secret' => env('BUCKETEER_AWS_SECRET_ACCESS_KEY'),
             'region' => env('BUCKETEER_AWS_REGION'),
             'bucket' => env('BUCKETEER_BUCKET_NAME'),
-            'url' => env('BUCKETEER_URL'),
+            'url' => 'https://' . env('BUCKETEER_BUCKET_NAME') . '.s3.amazonaws.com',
             'endpoint' => null,
             'use_path_style_endpoint' => false,
             'throw' => true,
