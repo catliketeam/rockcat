@@ -151,7 +151,7 @@ class Profile extends Model
 	public function avatar()
 	{
 		return $this->hasOne(Avatar::class)->withDefault([
-			'media_path' => 'storage/avatars/default.jpg',
+			'media_path' => 'public/avatars/default.jpg',
 			'change_count' => 0
 		]);
 	}
@@ -162,7 +162,7 @@ class Profile extends Model
 			$avatar = $this->avatar;
 
 			if(!$avatar) {
-				return Storage::disk('s3')->url('storage/avatars/default.jpg');
+				return url('/storage/avatars/default.jpg');
 			}
 
 			if($avatar->cdn_url) {
