@@ -60,3 +60,11 @@ heroku ps:scale web=1 worker=1 --app $APP_NAME
 # 12. Final message
 echo "🚀 Pixelfed should now be deployed at https://$APP_NAME.herokuapp.com"
 
+
+
+
+
+
+# how to set up the bucketeer policies
+# aws s3api put-public-access-block --bucket bucketeer-9323a7d7-306f-4010-ad8e-7b2bcd918e77 --public-access-block-configuration BlockPublicAcls=TRUE,IgnorePublicAcls=TRUE,BlockPublicPolicy=FALSE,RestrictPublicBuckets=FALSE
+# rockcat git:(dev) aws s3api put-bucket-policy --bucket bucketeer-9323a7d7-306f-4010-ad8e-7b2bcd918e77 --policy file://bucket-policy.json --endpoint-url https://s3.us-east-1.amazonaws.com --region us-east-1
