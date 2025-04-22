@@ -195,8 +195,17 @@ class Profile extends Model
 			}
 
 			if(config('filesystems.default') !== 'local') {
+				\Log::info('Using cloud storage URL generation', [
+					'filesystem' => config('filesystems.default'),
+					'path' => $path,
+					'url' => Storage::url($path)
+				]);
 				return Storage::url($path);
 			}
+			\Log::info('Using local storage URL generation', [
+				'filesystem' => config('filesystems.default'),
+				'path' => $path
+			]);
 
 			$path = "{$path}?v={$avatar->change_count}";
 
