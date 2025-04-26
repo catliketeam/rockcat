@@ -17,5 +17,6 @@
     "files.associations": {
         ".env": "shellscript",
         ".env.*": "shellscript"
-    }
+    },
+    "php.validate.executablePath": "/opt/homebrew/bin/php"
 }
