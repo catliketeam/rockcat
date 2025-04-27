@@ -32,8 +32,11 @@
 				<th scope="col" class="border-0" width="5%">
 					<span>ID</span> 
 				</th>
-				<th scope="col" class="border-0" width="40%">
+				<th scope="col" class="border-0" width="30%">
 					<span>Username</span>
+				</th>
+				<th scope="col" class="border-0" width="10%">
+					<span>Source</span>
 				</th>
 				<th scope="col" class="border-0" width="5%">
 					<span>Statuses</span>
@@ -69,6 +72,9 @@
 						<span class="text-danger">{{$user->username}}</span>
 					</span>
 				</td>
+				<td>
+					<span class="text-danger">-</span>
+				</td>
 				<td>0</td>
 				<td>0</td>
 				<td>0</td>
@@ -99,6 +105,17 @@
 						<i class="text-danger fas fa-certificate" title="Admin"></i>
 						@endif
 					</span>
+				</td>
+				<td>
+					@if($user->register_source == 'facebook')
+					<i class="fab fa-facebook text-primary" title="Facebook"></i>
+					@elseif($user->register_source == 'mastodon')
+					<i class="fas fa-server text-muted" title="Mastodon"></i>
+					@elseif($user->register_source == 'app')
+					<i class="fas fa-mobile-alt text-muted" title="App"></i>
+					@else
+					<i class="fas fa-user text-muted" title="Web"></i>
+					@endif
 				</td>
 				<td>
 					@if($user->account)
