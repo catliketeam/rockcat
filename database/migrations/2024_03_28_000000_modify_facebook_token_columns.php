@@ -9,16 +9,16 @@ class ModifyFacebookTokenColumns extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->text('facebook_token')->change();
-            $table->text('facebook_refresh_token')->change();
+            $table->text('facebook_token')->nullable()->change();
+            $table->text('facebook_refresh_token')->nullable()->change();
         });
     }
 
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('facebook_token')->change();
-            $table->string('facebook_refresh_token')->change();
+            $table->string('facebook_token')->nullable()->change();
+            $table->string('facebook_refresh_token')->nullable()->change();
         });
     }
 } 
