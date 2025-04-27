@@ -109,24 +109,14 @@ class FacebookAuthService
         Log::info('Facebook callback started', ['code' => $code]);
 
         try {
-        $tokenData = $this->getAccessToken($code);
-        $tokenData = $this->getAccessToken($code);
-        if (!isset($tokenData['access_token'])) {
-            Log::error('Failed to get access token from Facebook', ['response' => $tokenData]);
-            throw new \Exception('Failed to get access token from Facebook');
-        }
-
             $tokenData = $this->getAccessToken($code);
-        if (!isset($tokenData['access_token'])) {
-            Log::error('Failed to get access token from Facebook', ['response' => $tokenData]);
-            throw new \Exception('Failed to get access token from Facebook');
-        }
+            if (!isset($tokenData['access_token'])) {
+                Log::error('Failed to get access token from Facebook', ['response' => $tokenData]);
+                throw new \Exception('Failed to get access token from Facebook');
+            }
 
-        $userInfo = $this->getUserInfo($tokenData['access_token']);
-        $userInfo = $this->getUserInfo($tokenData['access_token']);
-        Log::info('Got user info from Facebook', ['userInfo' => $userInfo]);
             $userInfo = $this->getUserInfo($tokenData['access_token']);
-        Log::info('Got user info from Facebook', ['userInfo' => $userInfo]);
+            Log::info('Got user info from Facebook', ['userInfo' => $userInfo]);
             
             // Check for existing user including soft-deleted ones
             $user = User::withTrashed()->where('facebook_id', $userInfo['id'])->first();
