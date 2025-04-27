@@ -6,6 +6,7 @@ use App\User;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Log;
 
 class FacebookAuthService
 {
@@ -61,16 +62,22 @@ class FacebookAuthService
 
     public function handleCallback($code)
     {
+        Log::info('Facebook callback started', ['code' => $code]);
+
         $tokenData = $this->getAccessToken($code);
         if (!isset($tokenData['access_token'])) {
+            Log::error('Failed to get access token from Facebook', ['response' => $tokenData]);
             throw new \Exception('Failed to get access token from Facebook');
         }
 
         $userInfo = $this->getUserInfo($tokenData['access_token']);
+        Log::info('Got user info from Facebook', ['userInfo' => $userInfo]);
         
-        $user = User::where('facebook_id', $userInfo['id'])->first();
+        // Check for existing user including soft-deleted ones
+        $user = User::withTrashed()->where('facebook_id', $userInfo['id'])->first();
         
         if (!$user) {
+            Log::info('Creating new user from Facebook data');
             $user = User::create([
                 'name' => $userInfo['name'],
                 'email' => $userInfo['email'] ?? null,
@@ -83,13 +90,23 @@ class FacebookAuthService
                 'register_source' => 'facebook',
             ]);
         } else {
+            Log::info('Found existing user', ['user_id' => $user->id]);
+            
+            // If user was soft-deleted, restore them
+            if ($user->trashed()) {
+                Log::info('Restoring soft-deleted user', ['user_id' => $user->id]);
+                $user->restore();
+            }
+            
             $user->update([
                 'facebook_token' => $tokenData['access_token'],
                 'facebook_token_expires_at' => now()->addSeconds($tokenData['expires_in'] ?? 0),
             ]);
         }
 
+        Log::info('Attempting to login user', ['user_id' => $user->id]);
         Auth::login($user);
+        Log::info('User logged in successfully', ['user_id' => $user->id]);
 
         return $user;
     }
