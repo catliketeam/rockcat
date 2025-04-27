@@ -13,7 +13,8 @@ return [
     |
     */
 
-    'failed'   => 'Los datos introducidos no son v·lidos.',
-    'throttle' => 'Demasiados intentos de iniciar sesiÛn. Por favor, intÈntalo de nuevo en :seconds segundos.',
-    'verifyYourEmailAddress' => ' - Verifica tu direcciÛn de Correo',
+    'failed'   => 'Los datos introducidos no son vÔøΩlidos.',
+    'throttle' => 'Demasiados intentos de iniciar sesiÔøΩn. Por favor, intÔøΩntalo de nuevo en :seconds segundos.',
+    'verifyYourEmailAddress' => ' - Verifica tu direcciÔøΩn de Correo',
+    'login_with_facebook' => 'Iniciar sesi√≥n con Facebook',
 ];

@@ -16,4 +16,5 @@ return [
     'failed'   => 'These credentials do not match our records.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
     'verifyYourEmailAddress' => ' - Verify Your Email Address',
+    'login_with_facebook' => 'Login with Facebook',
 ];

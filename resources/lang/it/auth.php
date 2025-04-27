@@ -15,5 +15,6 @@ return [
 
     'failed'   => 'Credenziali non corrette.',
     'throttle' => 'Troppi tentativi di accesso. Per favore riprova ancora tra :seconds secondi.',
+    'login_with_facebook' => 'Accedi con Facebook',
 
 ];

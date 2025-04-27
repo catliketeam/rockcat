@@ -15,5 +15,6 @@ return [
 
     'failed'   => 'これらの認証情報は正しくありません。',
     'throttle' => 'ログイン試行回数が多すぎます。 :seconds 秒後にもう一度お試しください。',
+    'login_with_facebook' => 'Facebookでログイン',
 
 ];

@@ -15,5 +15,6 @@ return [
 
     'failed'   => 'As credenciais introduzidas não correspondem aos nossos registos.',
     'throttle' => 'Demasiadas tentativas de login. Tente novamente em :seconds segundos.',
+    'login_with_facebook' => 'Entrar com Facebook',
 
 ];
