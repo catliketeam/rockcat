@@ -26,7 +26,7 @@ trait AdminUserController
 			'next' => $offset + 1,
 			'query' => $search ? '&a=search&q=' . $search : null
 		];
-		$users = User::select('id', 'username', 'status', 'profile_id', 'is_admin')
+		$users = User::select('id', 'username', 'status', 'profile_id', 'is_admin', 'register_source')
 			->orderBy($col, $dir)
 			->when($search, function($q, $search) {
 				return $q->where('username', 'like', "%{$search}%");

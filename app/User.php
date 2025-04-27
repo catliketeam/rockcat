@@ -50,6 +50,10 @@ class User extends Authenticatable
         'notify_follow',
         'notify_mention',
         'notify_comment',
+        'facebook_id',
+        'facebook_token',
+        'facebook_refresh_token',
+        'facebook_token_expires_at',
     ];
 
     /**
