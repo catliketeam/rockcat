@@ -36,7 +36,7 @@ return [
     'channels' => [
         'stack' => [
             'driver'   => 'stack',
-            'channels' => ['single'],
+            'channels' => ['single', 'heroku'],
             'ignore_exceptions' => false,
         ],
 
@@ -95,6 +95,11 @@ return [
             'bubble' => false,
             'path'   => storage_path('logs/media.log'),
             'level'  => 'debug'
+        ],
+
+        'heroku' => [
+            'driver' => 'errorlog',
+            'level' => 'debug',
         ],
     ],
 
