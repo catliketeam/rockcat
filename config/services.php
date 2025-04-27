@@ -44,4 +44,11 @@ return [
     'resend' => [
         'key' => env('RESEND_KEY'),
     ],
+
+    'facebook' => [
+        'enabled' => env('FACEBOOK_AUTH_ENABLED', false),
+        'client_id' => env('FACEBOOK_CLIENT_ID'),
+        'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
+        'redirect' => env('FACEBOOK_REDIRECT_URI'),
+    ],
 ];

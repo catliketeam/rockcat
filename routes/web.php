@@ -492,4 +492,8 @@ Route::domain(config('pixelfed.domain.app'))->middleware(['validemail', 'twofact
     Route::get('@{username}@{domain}', 'SiteController@legacyWebfingerRedirect');
     Route::get('@{username}', 'SiteController@legacyProfileRedirect');
     Route::get('{username}', 'ProfileController@show');
+
+    // Facebook Auth Routes
+    Route::get('auth/facebook', 'Auth\FacebookAuthController@redirect')->name('auth.facebook');
+    Route::get('auth/facebook/callback', 'Auth\FacebookAuthController@callback');
 });

@@ -89,6 +89,14 @@
 	                        </div>
                         @endif
 
+                        @if(config('services.facebook.enabled'))
+                        <div class="form-group">
+                            <a href="{{ route('auth.facebook') }}" class="btn btn-primary btn-block">
+                                <i class="fab fa-facebook-f mr-2"></i> {{ __('auth.login_with_facebook') }}
+                            </a>
+                        </div>
+                        @endif
+
                         <button type="submit" class="btn btn-primary btn-block btn-lg font-weight-bold rounded-pill">
                             {{ __('Login') }}
                         </button>
