@@ -8,6 +8,17 @@
                 <div class="card-header bg-white p-3 text-center font-weight-bold">{{ __('Register a new account') }}</div>
 
                 <div class="card-body">
+                    @if(config('services.facebook.enabled'))
+                    <div class="d-flex justify-content-center mb-4">
+                        <a href="{{ route('auth.facebook') }}" class="btn btn-primary">
+                            <i class="fab fa-facebook mr-2"></i> {{ __('Continue with Facebook') }}
+                        </a>
+                    </div>
+                    <div class="text-center mb-4">
+                        <span class="text-muted">or</span>
+                    </div>
+                    @endif
+
                     <form method="POST" action="{{ route('register') }}" class="px-md-3">
                         @csrf
                         <input type="hidden" name="rt" value="{{ (new \App\Http\Controllers\Auth\RegisterController())->getRegisterToken() }}">
