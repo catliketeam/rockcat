@@ -10,8 +10,8 @@ class AddFacebookFieldsToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('facebook_id')->nullable()->unique();
-            $table->string('facebook_token')->nullable();
-            $table->string('facebook_refresh_token')->nullable();
+            $table->text('facebook_token')->nullable();
+            $table->text('facebook_refresh_token')->nullable();
             $table->timestamp('facebook_token_expires_at')->nullable();
         });
     }
