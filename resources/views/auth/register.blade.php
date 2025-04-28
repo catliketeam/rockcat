@@ -19,6 +19,14 @@
                     </div>
                     @endif
 
+                    @if(config('services.twitter.enabled'))
+                    <div class="mt-4">
+                        <a href="{{ route('auth.twitter') }}" class="btn btn-twitter btn-block">
+                            <i class="fab fa-twitter mr-2"></i> {{ __('auth.login_with_twitter') }}
+                        </a>
+                    </div>
+                    @endif
+
                     <form method="POST" action="{{ route('register') }}" class="px-md-3">
                         @csrf
                         <input type="hidden" name="rt" value="{{ (new \App\Http\Controllers\Auth\RegisterController())->getRegisterToken() }}">

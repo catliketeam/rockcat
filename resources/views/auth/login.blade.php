@@ -97,6 +97,14 @@
                         </div>
                         @endif
 
+                        @if(config('services.twitter.enabled'))
+                            <div class="mt-4">
+                                <a href="{{ route('auth.twitter') }}" class="btn btn-twitter btn-block">
+                                    <i class="fab fa-twitter mr-2"></i> {{ __('auth.login_with_twitter') }}
+                                </a>
+                            </div>
+                        @endif
+
                         <button type="submit" class="btn btn-primary btn-block btn-lg font-weight-bold rounded-pill">
                             {{ __('Login') }}
                         </button>
