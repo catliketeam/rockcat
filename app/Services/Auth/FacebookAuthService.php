@@ -118,23 +118,35 @@ class FacebookAuthService
             $userInfo = $this->getUserInfo($tokenData['access_token']);
             Log::info('Got user info from Facebook', ['userInfo' => $userInfo]);
             
-            // Check for existing user including soft-deleted ones
+            // Check for existing user by Facebook ID
             $user = User::withTrashed()->where('facebook_id', $userInfo['id'])->first();
             
             if (!$user) {
-                Log::info('Creating new user from Facebook data', ['userInfo' => $userInfo]);
-                $user = User::create([
-                    'name' => $userInfo['name'],
-                    'email' => $userInfo['email'] ?? null,
-                    'username' => $this->generateUniqueUsername($userInfo['name']),
-                    'password' => bcrypt(Str::random(32)),
-                    'facebook_id' => $userInfo['id'],
-                    'facebook_token' => $tokenData['access_token'],
-                    'facebook_token_expires_at' => now()->addSeconds($tokenData['expires_in'] ?? 0),
-                    'email_verified_at' => now(),
-                    'register_source' => 'facebook',
-                ]);
-                Log::info('New user created', ['user_id' => $user->id]);
+                // Check for existing user by email
+                $user = User::withTrashed()->where('email', $userInfo['email'])->first();
+                
+                if ($user) {
+                    Log::info('Found existing user by email, linking Facebook account', ['user_id' => $user->id]);
+                    $user->update([
+                        'facebook_id' => $userInfo['id'],
+                        'facebook_token' => $tokenData['access_token'],
+                        'facebook_token_expires_at' => now()->addSeconds($tokenData['expires_in'] ?? 0),
+                    ]);
+                } else {
+                    Log::info('Creating new user from Facebook data', ['userInfo' => $userInfo]);
+                    $user = User::create([
+                        'name' => $userInfo['name'],
+                        'email' => $userInfo['email'] ?? null,
+                        'username' => $this->generateUniqueUsername($userInfo['name']),
+                        'password' => bcrypt(Str::random(32)),
+                        'facebook_id' => $userInfo['id'],
+                        'facebook_token' => $tokenData['access_token'],
+                        'facebook_token_expires_at' => now()->addSeconds($tokenData['expires_in'] ?? 0),
+                        'email_verified_at' => now(),
+                        'register_source' => 'facebook',
+                    ]);
+                    Log::info('New user created', ['user_id' => $user->id]);
+                }
             } else {
                 Log::info('Found existing user', ['user_id' => $user->id]);
                 
