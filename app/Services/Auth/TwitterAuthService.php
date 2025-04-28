@@ -36,7 +36,7 @@ class TwitterAuthService
             'client_id' => $this->clientId,
             'redirect_uri' => $this->redirectUri,
             'state' => $state,
-            'scope' => 'tweet.read users.read offline.access',
+            'scope' => 'tweet.read users.read users.email offline.access',
             'response_type' => 'code',
             'code_challenge' => $this->generateCodeChallenge(),
             'code_challenge_method' => 'S256',
