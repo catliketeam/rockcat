@@ -498,6 +498,6 @@ Route::domain(config('pixelfed.domain.app'))->middleware(['validemail', 'twofact
     Route::get('auth/facebook/callback', 'Auth\FacebookAuthController@callback');
 
     // Twitter Authentication Routes
-    Route::get('/auth/twitter', [TwitterAuthController::class, 'redirect'])->name('auth.twitter');
-    Route::get('/auth/twitter/callback', [TwitterAuthController::class, 'callback'])->name('auth.twitter.callback');
+    Route::get('auth/twitter', 'Auth\TwitterAuthController@redirect')->name('auth.twitter');
+    Route::get('auth/twitter/callback', 'Auth\TwitterAuthController@callback')->name('auth.twitter.callback');
 });
