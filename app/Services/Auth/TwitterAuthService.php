@@ -136,7 +136,7 @@ class TwitterAuthService
                 Log::info('Creating new user from Twitter data', ['userInfo' => $userInfo]);
                 $user = User::create([
                     'name' => $userInfo['name'],
-                    'email' => $userInfo['email'] ?? null,
+                    'email' => $userInfo['confirmed_email'],
                     'username' => $this->generateUniqueUsername($userInfo['username']),
                     'password' => bcrypt(Str::random(32)),
                     'twitter_id' => $userInfo['id'],
