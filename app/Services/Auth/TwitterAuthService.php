@@ -93,7 +93,7 @@ class TwitterAuthService
         
         $response = Http::withToken($accessToken)
             ->get('https://api.twitter.com/2/users/me', [
-                'user.fields' => 'id,name,username,profile_image_url,email',
+                'user.fields' => 'id,name,username,profile_image_url,confirmed_email',
             ]);
 
         $data = $response->json();
