@@ -14,16 +14,19 @@
                             <i class="fab fa-facebook mr-2"></i> {{ __('Continue with Facebook') }}
                         </a>
                     </div>
-                    <div class="text-center mb-4">
-                        <span class="text-muted">or</span>
-                    </div>
                     @endif
 
                     @if(config('services.twitter.enabled'))
-                    <div class="mt-4">
-                        <a href="{{ route('auth.twitter') }}" class="btn btn-twitter btn-block">
+                    <div class="d-flex justify-content-center mb-4">
+                        <a href="{{ route('auth.twitter') }}" class="btn btn-twitter">
                             <i class="fab fa-twitter mr-2"></i> {{ __('auth.login_with_twitter') }}
                         </a>
+                    </div>
+                    @endif
+
+                    @if(config('services.facebook.enabled') || config('services.twitter.enabled'))
+                    <div class="text-center mb-4">
+                        <span class="text-muted">or</span>
                     </div>
                     @endif
 
