@@ -109,6 +109,8 @@
 				<td>
 					@if($user->register_source == 'facebook')
 					<i class="fab fa-facebook text-primary" title="Facebook"></i>
+					@elseif($user->register_source == 'twitter')
+					<i class="fab fa-twitter text-info" title="Twitter"></i>
 					@elseif($user->register_source == 'mastodon')
 					<i class="fas fa-server text-muted" title="Mastodon"></i>
 					@elseif($user->register_source == 'app')
