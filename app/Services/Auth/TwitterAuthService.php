@@ -129,24 +129,37 @@ class TwitterAuthService
             $userInfo = $this->getUserInfo($tokenData['access_token']);
             Log::info('Got user info from Twitter', ['userInfo' => $userInfo]);
             
-            // Check for existing user including soft-deleted ones
+            // Check for existing user by Twitter ID
             $user = User::withTrashed()->where('twitter_id', $userInfo['id'])->first();
             
             if (!$user) {
-                Log::info('Creating new user from Twitter data', ['userInfo' => $userInfo]);
-                $user = User::create([
-                    'name' => $userInfo['name'],
-                    'email' => $userInfo['confirmed_email'],
-                    'username' => $this->generateUniqueUsername($userInfo['username']),
-                    'password' => bcrypt(Str::random(32)),
-                    'twitter_id' => $userInfo['id'],
-                    'twitter_token' => $tokenData['access_token'],
-                    'twitter_token_secret' => $tokenData['refresh_token'] ?? null,
-                    'twitter_token_expires_at' => now()->addSeconds($tokenData['expires_in'] ?? 0),
-                    'email_verified_at' => now(),
-                    'register_source' => 'twitter',
-                ]);
-                Log::info('New user created', ['user_id' => $user->id]);
+                // Check for existing user by email
+                $user = User::withTrashed()->where('email', $userInfo['confirmed_email'])->first();
+                
+                if ($user) {
+                    Log::info('Found existing user by email, linking Twitter account', ['user_id' => $user->id]);
+                    $user->update([
+                        'twitter_id' => $userInfo['id'],
+                        'twitter_token' => $tokenData['access_token'],
+                        'twitter_token_secret' => $tokenData['refresh_token'] ?? null,
+                        'twitter_token_expires_at' => now()->addSeconds($tokenData['expires_in'] ?? 0),
+                    ]);
+                } else {
+                    Log::info('Creating new user from Twitter data', ['userInfo' => $userInfo]);
+                    $user = User::create([
+                        'name' => $userInfo['name'],
+                        'email' => $userInfo['confirmed_email'],
+                        'username' => $this->generateUniqueUsername($userInfo['username']),
+                        'password' => bcrypt(Str::random(32)),
+                        'twitter_id' => $userInfo['id'],
+                        'twitter_token' => $tokenData['access_token'],
+                        'twitter_token_secret' => $tokenData['refresh_token'] ?? null,
+                        'twitter_token_expires_at' => now()->addSeconds($tokenData['expires_in'] ?? 0),
+                        'email_verified_at' => now(),
+                        'register_source' => 'twitter',
+                    ]);
+                    Log::info('New user created', ['user_id' => $user->id]);
+                }
             } else {
                 Log::info('Found existing user', ['user_id' => $user->id]);
                 
