@@ -59,14 +59,14 @@ class TwitterAuthService
     {
         Log::info('Requesting access token from Twitter', ['code' => $code]);
         
-        $response = Http::asForm()->post('https://api.twitter.com/2/oauth2/token', [
-            'client_id' => $this->clientId,
-            'client_secret' => $this->clientSecret,
-            'code' => $code,
-            'grant_type' => 'authorization_code',
-            'redirect_uri' => $this->redirectUri,
-            'code_verifier' => session('twitter_code_verifier'),
-        ]);
+        $response = Http::withBasicAuth($this->clientId, $this->clientSecret)
+            ->asForm()
+            ->post('https://api.twitter.com/2/oauth2/token', [
+                'code' => $code,
+                'grant_type' => 'authorization_code',
+                'redirect_uri' => $this->redirectUri,
+                'code_verifier' => session('twitter_code_verifier'),
+            ]);
 
         $data = $response->json();
         Log::info('Twitter access token response', ['response' => $data]);
