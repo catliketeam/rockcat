@@ -130,6 +130,7 @@ class FacebookAuthService
                     $user->update([
                         'facebook_id' => $userInfo['id'],
                         'facebook_token' => $tokenData['access_token'],
+                        'facebook_refresh_token' => $tokenData['refresh_token'] ?? null,
                         'facebook_token_expires_at' => now()->addSeconds($tokenData['expires_in'] ?? 0),
                     ]);
                 } else {
@@ -141,6 +142,7 @@ class FacebookAuthService
                         'password' => bcrypt(Str::random(32)),
                         'facebook_id' => $userInfo['id'],
                         'facebook_token' => $tokenData['access_token'],
+                        'facebook_refresh_token' => $tokenData['refresh_token'] ?? null,
                         'facebook_token_expires_at' => now()->addSeconds($tokenData['expires_in'] ?? 0),
                         'email_verified_at' => now(),
                         'register_source' => 'facebook',
@@ -158,6 +160,7 @@ class FacebookAuthService
                 
                 $user->update([
                     'facebook_token' => $tokenData['access_token'],
+                    'facebook_refresh_token' => $tokenData['refresh_token'] ?? null,
                     'facebook_token_expires_at' => now()->addSeconds($tokenData['expires_in'] ?? 0),
                 ]);
                 Log::info('Updated existing user', ['user_id' => $user->id]);
