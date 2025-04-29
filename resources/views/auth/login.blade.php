@@ -19,11 +19,10 @@
                     @endforeach
                 @endif
                 <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
+                    <form method="POST" action="{{ route('login') }}" class="px-md-3">
                         @csrf
 
                         <div class="form-group row mb-0">
-
                             <div class="col-md-12">
                                 <label for="email" class="small font-weight-bold text-muted mb-0">Email Address</label>
                                 <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" placeholder="{{__('Email')}}" required autofocus>
@@ -43,7 +42,6 @@
                         </div>
 
                         <div class="form-group row mb-0">
-
                             <div class="col-md-12">
                                 <label for="password" class="small font-weight-bold text-muted mb-0">Password</label>
                                 <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" placeholder="{{__('Password')}}" required>
@@ -89,25 +87,31 @@
 	                        </div>
                         @endif
 
+                        <button type="submit" class="btn btn-primary btn-block py-0 font-weight-bold">
+                            {{ __('Login') }}
+                        </button>
+
+                        @if(config('services.facebook.enabled') || config('services.twitter.enabled'))
+                        <div class="text-center my-4">
+                            <span class="text-muted">or</span>
+                        </div>
+                        @endif
+
                         @if(config('services.facebook.enabled'))
-                        <div class="form-group">
-                            <a href="{{ route('auth.facebook') }}" class="btn btn-primary btn-block">
-                                <i class="fab fa-facebook-f mr-2"></i> {{ __('auth.login_with_facebook') }}
+                        <div class="d-flex justify-content-center mb-4">
+                            <a href="{{ route('auth.facebook') }}" class="btn btn-primary">
+                                <i class="fab fa-facebook mr-2"></i> {{ __('Continue with Facebook') }}
                             </a>
                         </div>
                         @endif
 
                         @if(config('services.twitter.enabled'))
-                            <div class="mt-4">
-                                <a href="{{ route('auth.twitter') }}" class="btn btn-twitter btn-block">
-                                    <i class="fab fa-twitter mr-2"></i> {{ __('auth.login_with_twitter') }}
-                                </a>
-                            </div>
+                        <div class="d-flex justify-content-center mb-4">
+                            <a href="{{ route('auth.twitter') }}" class="btn" style="background-color: #000000; color: #ffffff; border: 1px solid #000000;">
+                                <i class="fab fa-twitter mr-2"></i> {{ __('auth.login_with_twitter') }}
+                            </a>
+                        </div>
                         @endif
-
-                        <button type="submit" class="btn btn-primary btn-block btn-lg font-weight-bold rounded-pill">
-                            {{ __('Login') }}
-                        </button>
 
                     </form>
                     @if(
