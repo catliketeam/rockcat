@@ -107,9 +107,9 @@ class TwitterAuthService
             throw new \Exception('Failed to get user info: ' . ($data['detail'] ?? 'Unknown error'));
         }
 
-        if (!isset($data['data']['id'])) {
-            Log::error('No user ID in response', ['response' => $data]);
-            throw new \Exception('No user ID in response');
+        if (!isset($data['data'])) {
+            Log::error('No user data in response', ['response' => $data]);
+            throw new \Exception('No user data in response');
         }
 
         return $data['data'];
