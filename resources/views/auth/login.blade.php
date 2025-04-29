@@ -87,7 +87,7 @@
 	                        </div>
                         @endif
 
-                        <button type="submit" class="btn btn-primary btn-block py-0 font-weight-bold">
+                        <button type="submit" class="btn btn-primary btn-block btn-lg font-weight-bold rounded-pill">
                             {{ __('Login') }}
                         </button>
 
