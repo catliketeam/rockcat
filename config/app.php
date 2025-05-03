@@ -22,11 +22,23 @@ return [
     |
     | This value determines the "environment" your application is currently
     | running in. This may determine how you prefer to configure various
-    | services your application utilizes. Set this in your ".env" file.
+    | services the application utilizes. Set this in your ".env" file.
     |
     */
 
     'env' => env('APP_ENV', 'production'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Cloudflare IP Restriction
+    |--------------------------------------------------------------------------
+    |
+    | When enabled, the application will only accept requests from Cloudflare IPs
+    | and will block direct access to the application.
+    |
+    */
+
+    'restrict_ip_access_cloudflare' => env('RESTRICT_IP_ACCESS_CLOUDFLARE', false),
 
     /*
     |--------------------------------------------------------------------------
