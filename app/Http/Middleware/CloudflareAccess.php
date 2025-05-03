@@ -55,12 +55,18 @@ class CloudflareAccess
 
         $clientIp = $request->ip();
         
+        // Check if the request is coming from Cloudflare Access
+        if ($this->isCloudflareAccessRequest($request)) {
+            return $next($request);
+        }
+        
         // Check if the request is coming from a Cloudflare IP
         if (!$this->isCloudflareIp($clientIp)) {
             Log::warning('Access denied: Request from non-Cloudflare IP', [
                 'ip' => $clientIp,
                 'user_agent' => $request->userAgent(),
-                'url' => $request->fullUrl()
+                'url' => $request->fullUrl(),
+                'headers' => $request->headers->all()
             ]);
             
             return response()->json([
@@ -69,6 +75,21 @@ class CloudflareAccess
         }
 
         return $next($request);
+    }
+
+    /**
+     * Check if the request is coming from Cloudflare Access
+     *
+     * @param Request $request
+     * @return bool
+     */
+    protected function isCloudflareAccessRequest(Request $request)
+    {
+        // Check for Cloudflare Access headers
+        $cfAccessJwtAssertion = $request->header('Cf-Access-Jwt-Assertion');
+        $cfAccessAuthenticatedUserEmail = $request->header('Cf-Access-Authenticated-User-Email');
+        
+        return !empty($cfAccessJwtAssertion) || !empty($cfAccessAuthenticatedUserEmail);
     }
 
     /**
