@@ -48,6 +48,11 @@ class CloudflareAccess
      */
     public function handle(Request $request, Closure $next)
     {
+        // Allow access to manifest.json
+        if ($request->is('manifest.json')) {
+            return $next($request);
+        }
+
         // Only perform checks if IP restriction is enabled
         if (!config('app.restrict_ip_access_cloudflare', false)) {
             return $next($request);
