@@ -9,10 +9,13 @@
     line-height: 20px;
     padding: 0 12px;
     height: 40px;
+    min-width: 240px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    transition: background-color 0.2s;
+    transition: all 0.2s ease;
+    box-shadow: none;
+    text-decoration: none;
     
     &:hover {
         background-color: #F8F9FA;
@@ -23,6 +26,7 @@
 
     &:active {
         background-color: #F1F3F4;
+        border-color: #747775;
     }
 
     i {
