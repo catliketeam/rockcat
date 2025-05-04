@@ -24,27 +24,19 @@
                     </div>
                     @endif
 
-                    @if(config('services.facebook.enabled') || config('services.twitter.enabled'))
+                    @if(config('services.google.enabled'))
+                    <div class="d-flex justify-content-center mb-4">
+                        <a href="{{ route('auth.google') }}" class="btn btn-google">
+                            <i class="fab fa-google mr-2"></i> {{ __('Continue with Google') }}
+                        </a>
+                    </div>
+                    @endif
+
+                    @if(config('services.facebook.enabled') || config('services.twitter.enabled') || config('services.google.enabled'))
                     <div class="text-center mb-4">
                         <span class="text-muted">or</span>
                     </div>
                     @endif
-
-                    <div class="text-center mb-3">
-                        <span class="text-muted">or</span>
-                    </div>
-
-                    <a href="{{ route('auth.facebook') }}" class="btn btn-block btn-facebook mb-3">
-                        <i class="fab fa-facebook-f mr-2"></i> Continue with Facebook
-                    </a>
-
-                    <a href="{{ route('auth.twitter') }}" class="btn btn-block btn-twitter mb-3">
-                        <i class="fab fa-twitter mr-2"></i> Continue with Twitter
-                    </a>
-
-                    <a href="{{ route('auth.google') }}" class="btn btn-block btn-google mb-3">
-                        <i class="fab fa-google mr-2"></i> Continue with Google
-                    </a>
 
                     <form method="POST" action="{{ route('register') }}" class="px-md-3">
                         @csrf
